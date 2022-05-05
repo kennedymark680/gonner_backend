@@ -17,8 +17,13 @@ module.exports = {
       alive: {
         type: Sequelize.BOOLEAN
       },
-      guesslist: {
-        type: Sequelize.INTEGER
+      guesslistId: {
+        type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
+        references: {
+          model: 'guesslists',
+          key: 'id'
+        }
       },
       createdAt: {
         allowNull: false,

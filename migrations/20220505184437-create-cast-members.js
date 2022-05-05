@@ -1,7 +1,7 @@
 'use strict'
 module.exports = {
   async up(queryInterface, Sequelize) {
-    await queryInterface.createTable('castMembers', {
+    await queryInterface.createTable('castmembers', {
       id: {
         allowNull: false,
         autoIncrement: true,
@@ -17,8 +17,13 @@ module.exports = {
       order: {
         type: Sequelize.INTEGER
       },
-      movie: {
-        type: Sequelize.INTEGER
+      movieId: {
+        type: Sequelize.INTEGER,
+        onDelete: 'CASCADE',
+        references: {
+          model: 'movies',
+          key: 'id'
+        }
       },
       createdAt: {
         allowNull: false,
@@ -31,6 +36,6 @@ module.exports = {
     })
   },
   async down(queryInterface, Sequelize) {
-    await queryInterface.dropTable('castMembers')
+    await queryInterface.dropTable('castmembers')
   }
 }

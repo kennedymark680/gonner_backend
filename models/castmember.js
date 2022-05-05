@@ -9,6 +9,7 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      CastMember.belongsTo(models.Movie, { foreignKey: 'movieId' })
     }
   }
   CastMember.init(
@@ -16,7 +17,14 @@ module.exports = (sequelize, DataTypes) => {
       name: DataTypes.STRING,
       alive: DataTypes.BOOLEAN,
       order: DataTypes.INTEGER,
-      movie: DataTypes.INTEGER
+      movieId: {
+        type: DataTypes.INTEGER,
+        onDelete: 'CASCADE',
+        references: {
+          model: 'movies',
+          key: 'id'
+        }
+      }
     },
     {
       sequelize,

@@ -9,13 +9,22 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      GuessList.belongsTo(models.Movie, { foreignKey: 'movieId' })
+      GuessList.hasMany(models.Character, { foreignKey: 'guesslistId' })
     }
   }
   GuessList.init(
     {
       name: DataTypes.STRING,
       score: DataTypes.INTEGER,
-      movieId: DataTypes.INTEGER
+      movieId: {
+        type: DataTypes.INTEGER,
+        onDelete: 'CASCADE',
+        references: {
+          model: 'movies',
+          key: 'id'
+        }
+      }
     },
     {
       sequelize,

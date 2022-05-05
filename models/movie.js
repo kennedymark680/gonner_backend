@@ -9,6 +9,8 @@ module.exports = (sequelize, DataTypes) => {
      */
     static associate(models) {
       // define association here
+      Movie.hasMany(models.CastMember, { foreignKey: 'movieId' })
+      Movie.hasMany(models.GuessList, { foreignKey: 'movieId' })
     }
   }
   Movie.init(
