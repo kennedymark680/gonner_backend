@@ -4,6 +4,8 @@
   "description": "",
   "main": "index.js",
   "scripts": {
+    "dev": "nodemon app.js",
+    "start": "node app.js",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "repository": {
@@ -18,7 +20,12 @@
   },
   "homepage": "https://github.com/kennedymark680/gonner_backend#readme",
   "dependencies": {
+    "cors": "^2.8.5",
+    "express": "^4.18.1",
     "pg": "^8.7.3",
     "sequelize": "^6.19.0"
+  },
+  "devDependencies": {
+    "nodemon": "^2.0.16"
   }
 }
