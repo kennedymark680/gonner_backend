@@ -9,6 +9,28 @@ const GetAllMovies = async (req, res) => {
   }
 }
 
+const CreateMovie = async (req, res) => {
+  try {
+    let movieBody = req.body
+    let movie = await Movie.create(movieBody)
+    res.send(movie)
+  } catch (error) {
+    throw error
+  }
+}
+
+const GetMovieByMovieId = async (req, res) => {
+  try {
+    let movieId = parseInt(req.params.movie_id)
+    let movie = await Movie.findAll({ where: { id: movieId } })
+    res.send(movie)
+  } catch (error) {
+    throw error
+  }
+}
+
 module.exports = {
-  GetAllMovies
+  GetAllMovies,
+  CreateMovie,
+  GetMovieByMovieId
 }
