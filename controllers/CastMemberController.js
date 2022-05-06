@@ -11,12 +11,15 @@ const GetAllCastMembersByMovieId = async (req, res) => {
 
 const CreateCastMember = async (req, res) => {
   try {
-    let movieId = parseInt(req.params.movie_id)
+    // let movieId = parseInt(req.params.movie_id)
+    console.log('yo')
+    res.send('yoyo')
   } catch (error) {
     throw error
   }
 }
 
 module.exports = {
-  GetAllCastMembersByMovieId
+  GetAllCastMembersByMovieId,
+  CreateCastMember
 }

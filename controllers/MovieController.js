@@ -22,8 +22,9 @@ const CreateMovie = async (req, res) => {
 const GetMovieByMovieId = async (req, res) => {
   try {
     let movieId = parseInt(req.params.movie_id)
-    let movie = await Movie.findAll({ where: { id: movieId } })
+    let movie = await Movie.findByPk(movieId)
     res.send(movie)
+    console.log(movie)
   } catch (error) {
     throw error
   }
