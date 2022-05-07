@@ -18,6 +18,7 @@ module.exports = {
           'Dutch (Arnold Schwarzenegger), a soldier of fortune, is hired by the U.S. government to secretly rescue a group of politicians trapped in Guatemala.',
         image:
           'https://encrypted-tbn0.gstatic.com/images?q=tbn:ANd9GcRikSEIgYlliuIjkbfy1dm_7eQ0Ee1R2YZp_mOwY8VFLFCa5Acy97-NF3Mq4RvYqfY38_s&usqp=CAU',
+        gonnerOrder: 1,
         createdAt: new Date(),
         updatedAt: new Date()
       }

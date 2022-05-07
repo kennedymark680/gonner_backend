@@ -30,8 +30,20 @@ const GetMovieByMovieId = async (req, res) => {
   }
 }
 
+const UpdateGonnerOrder = async (req, res) => {
+  try {
+    let movieId = parseInt(req.params.movie_id)
+    let updateMovie = await Movie.update(req.body, {
+      where: { id: movieId },
+      returning: true
+    })
+    res.send(updateMovie[1])
+  } catch (error) {}
+}
+
 module.exports = {
   GetAllMovies,
   CreateMovie,
-  GetMovieByMovieId
+  GetMovieByMovieId,
+  UpdateGonnerOrder
 }
