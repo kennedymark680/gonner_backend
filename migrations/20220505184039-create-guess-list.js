@@ -14,6 +14,9 @@ module.exports = {
       score: {
         type: Sequelize.INTEGER
       },
+      gonnerOrder: {
+        type: Sequelize.INTEGER
+      },
       movieId: {
         type: Sequelize.INTEGER,
         onDelete: 'CASCADE',

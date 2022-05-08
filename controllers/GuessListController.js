@@ -7,7 +7,7 @@ const CreateGuessList = async (req, res) => {
       movieId,
       ...req.body
     }
-    const guessList = GuessList.create(guessListBody)
+    const guessList = await GuessList.create(guessListBody)
     res.send(guessList)
   } catch (error) {
     throw error
@@ -24,7 +24,18 @@ const GetGuessListByMovieId = async (req, res) => {
   }
 }
 
+const DeleteAllListByMovieId = async (req, res) => {
+  try {
+    const movieId = parseInt(req.params.movie_id)
+    let guessLists = await GuessList.destroy({ where: { movieId: movieId } })
+    res.send(`All lists deleted for movie with the id of ${movieId}`)
+  } catch (error) {
+    throw error
+  }
+}
+
 module.exports = {
   CreateGuessList,
-  GetGuessListByMovieId
+  GetGuessListByMovieId,
+  DeleteAllListByMovieId
 }

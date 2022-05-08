@@ -17,6 +17,7 @@ module.exports = (sequelize, DataTypes) => {
     {
       name: DataTypes.STRING,
       score: DataTypes.INTEGER,
+      gonnerOrder: DataTypes.INTEGER,
       movieId: {
         type: DataTypes.INTEGER,
         onDelete: 'CASCADE',

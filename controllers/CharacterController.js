@@ -9,9 +9,25 @@ const CreateCharacter = async (req, res) => {
     }
     const character = Character.create(characterBody)
     res.send(character)
-  } catch (error) {}
+  } catch (error) {
+    throw error
+  }
+}
+
+const SetOrder = async (req, res) => {
+  try {
+    let charId = parseInt(req.params.character_id)
+    let updateOrder = await Character.update(req.body, {
+      where: { id: charId },
+      returning: true
+    })
+    res.send(updateOrder)
+  } catch (error) {
+    throw error
+  }
 }
 
 module.exports = {
-  CreateCharacter
+  CreateCharacter,
+  SetOrder
 }
