@@ -7,7 +7,7 @@ const CreateCharacter = async (req, res) => {
       guesslistId,
       ...req.body
     }
-    const character = Character.create(characterBody)
+    const character = await Character.create(characterBody)
     res.send(character)
   } catch (error) {
     throw error
@@ -27,7 +27,20 @@ const SetOrder = async (req, res) => {
   }
 }
 
+const GetAllCharactersByListId = async (req, res) => {
+  try {
+    let guesslistId = parseInt(req.params.guesslist_id)
+    const characters = await Character.findAll({
+      where: { guesslistId: guesslistId }
+    })
+    res.send(characters)
+  } catch (error) {
+    throw error
+  }
+}
+
 module.exports = {
   CreateCharacter,
-  SetOrder
+  SetOrder,
+  GetAllCharactersByListId
 }
