@@ -34,8 +34,36 @@ const DeleteAllListByMovieId = async (req, res) => {
   }
 }
 
+const UpdateGonnerOrder = async (req, res) => {
+  try {
+    const guessListId = parseInt(req.params.guesslist_id)
+    let updateOrder = await GuessList.update(req.body, {
+      where: { id: guessListId },
+      returning: true
+    })
+    res.send(updateOrder)
+  } catch (error) {
+    throw error
+  }
+}
+
+const UpdateScore = async (req, res) => {
+  try {
+    const guessListId = parseInt(req.params.guesslist_id)
+    let updateScore = await GuessList.update(req.body, {
+      where: { id: guessListId },
+      returning: true
+    })
+    res.send(updateScore)
+  } catch (error) {
+    throw error
+  }
+}
+
 module.exports = {
   CreateGuessList,
   GetGuessListByMovieId,
-  DeleteAllListByMovieId
+  DeleteAllListByMovieId,
+  UpdateGonnerOrder,
+  UpdateScore
 }

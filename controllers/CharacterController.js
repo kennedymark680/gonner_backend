@@ -21,7 +21,7 @@ const SetOrder = async (req, res) => {
       where: { id: charId },
       returning: true
     })
-    res.send(updateOrder)
+    res.send(updateOrder[1])
   } catch (error) {
     throw error
   }
