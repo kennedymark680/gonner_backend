@@ -24,7 +24,6 @@ const GetMovieByMovieId = async (req, res) => {
     let movieId = parseInt(req.params.movie_id)
     let movie = await Movie.findByPk(movieId)
     res.send(movie)
-    console.log(movie)
   } catch (error) {
     throw error
   }

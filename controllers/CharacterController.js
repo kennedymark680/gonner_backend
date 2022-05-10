@@ -31,7 +31,8 @@ const GetAllCharactersByListId = async (req, res) => {
   try {
     let guesslistId = parseInt(req.params.guesslist_id)
     const characters = await Character.findAll({
-      where: { guesslistId: guesslistId }
+      where: { guesslistId: guesslistId },
+      order: [['createdAt']]
     })
     res.send(characters)
   } catch (error) {

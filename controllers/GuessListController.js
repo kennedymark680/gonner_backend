@@ -1,4 +1,4 @@
-const { GuessList } = require('../models')
+const { GuessList, Character } = require('../models')
 
 const CreateGuessList = async (req, res) => {
   try {
@@ -17,7 +17,11 @@ const CreateGuessList = async (req, res) => {
 const GetGuessListByMovieId = async (req, res) => {
   try {
     const movieId = parseInt(req.params.movie_id)
-    let guessLists = await GuessList.findAll({ where: { movieId: movieId } })
+    let guessLists = await GuessList.findAll({
+      where: { movieId: movieId },
+      include: [{ model: Character }],
+      order: [['createdAt']]
+    })
     res.send(guessLists)
   } catch (error) {
     throw error
@@ -49,12 +53,34 @@ const UpdateGonnerOrder = async (req, res) => {
 
 const UpdateScore = async (req, res) => {
   try {
+    console.log('hit')
     const guessListId = parseInt(req.params.guesslist_id)
-    let updateScore = await GuessList.update(req.body, {
-      where: { id: guessListId },
-      returning: true
+    const score = req.body.score
+    const guessList = await GuessList.findOne({
+      where: { id: guessListId }
     })
-    res.send(updateScore)
+    const updateScore = guessList.dataValues.score + score
+    const updateGuessList = await GuessList.update(
+      { score: updateScore },
+      {
+        where: { id: guessListId },
+        include: [{ model: Character }],
+        returning: true,
+        raw: true
+      }
+    )
+    console.log(updateGuessList, 'updateGuessList71')
+    res.status(200).json(updateGuessList)
+  } catch (error) {
+    throw error
+  }
+}
+
+const DeleteListByListId = async (req, res) => {
+  try {
+    const guessListId = parseInt(req.params.guesslist_id)
+    let guessLists = await GuessList.destroy({ where: { id: guessListId } })
+    res.send(`Deleted list with the id of ${guessListId}`)
   } catch (error) {
     throw error
   }
@@ -65,5 +91,6 @@ module.exports = {
   GetGuessListByMovieId,
   DeleteAllListByMovieId,
   UpdateGonnerOrder,
-  UpdateScore
+  UpdateScore,
+  DeleteListByListId
 }

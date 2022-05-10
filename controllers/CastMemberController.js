@@ -1,9 +1,12 @@
-const { CastMember } = require('../models')
+const { CastMember, GuessList, Character } = require('../models')
 
 const GetAllCastMembersByMovieId = async (req, res) => {
   try {
     const movieId = parseInt(req.params.movie_id)
-    let cast = await CastMember.findAll({ where: { movieId: movieId } })
+    let cast = await CastMember.findAll({
+      where: { movieId: movieId },
+      order: [['createdAt']]
+    })
     res.send(cast)
   } catch (error) {
     throw error
@@ -18,6 +21,20 @@ const CreateCastMember = async (req, res) => {
       ...req.body
     }
     let castMember = await CastMember.create(castBody)
+    const allCastList = await GuessList.findAll({
+      where: { movieId: movieId }
+    })
+
+    for (const list of allCastList) {
+      const character = {
+        name: castMember.name,
+        order: 0,
+        alive: true,
+        guesslistId: list.id
+      }
+      const newCharacter = await Character.create(character)
+    }
+
     res.send(castMember)
   } catch (error) {
     throw error
@@ -30,9 +47,9 @@ const Mortality = async (req, res) => {
     let castMemberId = parseInt(req.params.castmember_id)
     let updateMortality = await CastMember.update(req.body, {
       where: { id: castMemberId },
-      returning: true
+      returning: true,
+      raw: true
     })
-    console.log(updateMortality, 'updatedMortality')
     res.send(updateMortality[1])
   } catch (error) {
     throw error
