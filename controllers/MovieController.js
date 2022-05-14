@@ -40,9 +40,20 @@ const UpdateGonnerOrder = async (req, res) => {
   } catch (error) {}
 }
 
+const DeleteMovie = async (req, res) => {
+  try {
+    const movieId = parseInt(req.params.movie_id)
+    let movie = await Movie.destroy({ where: { id: movieId } })
+    res.send(`Deleted movie with the id of ${movieId}`)
+  } catch (error) {
+    throw error
+  }
+}
+
 module.exports = {
   GetAllMovies,
   CreateMovie,
   GetMovieByMovieId,
-  UpdateGonnerOrder
+  UpdateGonnerOrder,
+  DeleteMovie
 }
