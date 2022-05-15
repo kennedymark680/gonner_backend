@@ -32,7 +32,7 @@ const DeleteAllListByMovieId = async (req, res) => {
   try {
     const movieId = parseInt(req.params.movie_id)
     let guessLists = await GuessList.destroy({ where: { movieId: movieId } })
-    res.send(`All lists deleted for movie with the id of ${movieId}`)
+    res.send(`All lists deleted for movie id of ${movieId}`)
   } catch (error) {
     throw error
   }
